@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro-SaaS idea backlog</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EEF1F4;
+    --sheet: #FFFFFF;
+    --ink: #1B2B44;
+    --muted: #5A6778;
+    --line: #C9D1DB;
+    --yellow: #F2C230;
+    --red: #B8322A;
+    --green: #2F7A4F;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 17px/1.55 "Barlow", "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 48px 20px 80px; }
+
+  header { border-left: 10px solid var(--yellow); padding: 4px 0 4px 22px; margin-bottom: 40px; }
+  h1, h2 {
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-weight: 700; letter-spacing: -0.01em; line-height: 1.05; margin: 0;
+  }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); }
+  header p { margin: 12px 0 0; color: var(--muted); max-width: 62ch; }
+
+  h2 { font-size: 1.9rem; margin: 56px 0 6px; }
+  .lede { color: var(--muted); margin: 0 0 18px; max-width: 64ch; }
+
+  .shortlist {
+    background: var(--ink); color: #fff; padding: 26px 26px 20px; margin-top: 8px;
+  }
+  .shortlist h2 { margin-top: 0; color: var(--yellow); }
+  .shortlist ol { margin: 14px 0 0; padding-left: 1.3em; }
+  .shortlist li { margin-bottom: 12px; }
+  .shortlist li strong { font-weight: 600; }
+  .shortlist li span { display: block; color: #C7D0DD; font-size: 0.95rem; }
+
+  .idea {
+    background: var(--sheet); border: 1px solid var(--line);
+    display: grid; grid-template-columns: 52px 1fr auto; gap: 0 16px;
+    padding: 16px 18px; margin-bottom: -1px; align-items: start;
+  }
+  .idea .num {
+    font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 1.6rem;
+    color: var(--muted); line-height: 1;
+  }
+  .idea h3 { margin: 0 0 4px; font-size: 1.08rem; font-weight: 600; }
+  .idea p { margin: 0; color: var(--muted); font-size: 0.97rem; max-width: 60ch; }
+  .idea .reuse { margin-top: 6px; font-size: 0.88rem; color: var(--ink); }
+  .idea.pick { border-left: 6px solid var(--yellow); padding-left: 13px; }
+
+  select {
+    font: 500 0.9rem "Barlow", sans-serif; color: var(--ink);
+    border: 1px solid var(--line); background: var(--paper); padding: 6px 8px; border-radius: 3px;
+  }
+  select[data-v="Testing"] { background: var(--yellow); border-color: var(--yellow); }
+  select[data-v="Validated"] { background: var(--green); border-color: var(--green); color: #fff; }
+  select[data-v="Killed"] { background: var(--red); border-color: var(--red); color: #fff; }
+
+  .rule { background: var(--sheet); border: 2px solid var(--red); padding: 24px; margin-top: 12px; }
+  .rule h2 { margin-top: 0; color: var(--red); }
+  .rule h4 { margin: 22px 0 8px; font-size: 1rem; font-weight: 600; }
+  .check { display: flex; gap: 10px; align-items: flex-start; margin: 6px 0; cursor: pointer; }
+  .check input { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--ink); flex: none; }
+  .check input:checked + span { color: var(--muted); text-decoration: line-through; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .fields label { font-size: 0.88rem; color: var(--muted); display: block; }
+  .fields input {
+    width: 100%; font: 500 1rem "Barlow", sans-serif; color: var(--ink);
+    padding: 7px 9px; border: 1px solid var(--line); border-radius: 3px; margin-top: 3px;
+  }
+  .verdict { margin-top: 18px; padding: 12px 14px; background: var(--paper); font-weight: 500; }
+  .outcomes p { margin: 6px 0; }
+  .outcomes b { font-weight: 600; }
+
+  button {
+    font: 500 0.9rem "Barlow", sans-serif; background: none; border: 1px solid var(--line);
+    color: var(--muted); padding: 7px 12px; border-radius: 3px; cursor: pointer; margin-top: 40px;
+  }
+  :focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+  @media (max-width: 560px) {
+    .idea { grid-template-columns: 36px 1fr; }
+    .idea select { grid-column: 2; margin-top: 10px; justify-self: start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Micro-SaaS idea backlog</h1>
+    <p>Small, single-job products built on what already exists: the Supabase and Twilio SMS stack, the ServiceM8 integration, the review and GBP tools, plus background in property, freight, fitness and dental. Every idea gets sold before it gets built.</p>
+  </header>
+
+  <section class="shortlist">
+    <h2>Shortlist</h2>
+    <ol>
+      <li><strong>CP12 gas safety renewal reminders</strong><span>Sells to the gas engineers already being targeted, on the ServiceM8 integration already built.</span></li>
+      <li><strong>Quote follow-up chaser for trades</strong><span>Reuses the ServiceM8 OAuth and webhooks almost as-is.</span></li>
+      <li><strong>Accountant info chaser</strong><span>Has a warm first user ready to test.</span></li>
+    </ol>
+  </section>
+
+  <h2>Reusing the SMS stack</h2>
+  <p class="lede">Supabase, Twilio and scheduled message sequences.</p>
+  <div class="list" data-group="sms"></div>
+
+  <h2>Reusing the review and GBP tools</h2>
+  <p class="lede">Widget, health check and complaint monitoring.</p>
+  <div class="list" data-group="reviews"></div>
+
+  <h2>From property experience</h2>
+  <p class="lede">Propertymark background and the deposit dispute.</p>
+  <div class="list" data-group="property"></div>
+
+  <h2>From freight and US work</h2>
+  <div class="list" data-group="freight"></div>
+
+  <h2>Standalone tools already built</h2>
+  <div class="list" data-group="tools"></div>
+
+  <section class="rule" id="rule">
+    <h2>Kill rule</h2>
+    <p style="margin:0;max-width:64ch">Set before any test starts. No payments after £300 of ads and 20 real conversations means the offer or niche is wrong. Move to the next idea on the list and run the same sell-first test.</p>
+
+    <h4>Before you start</h4>
+    <label class="check"><input type="checkbox" data-k="c1"><span>Write down the start date and end date (30 days)</span></label>
+    <label class="check"><input type="checkbox" data-k="c2"><span>Set the budget cap at £300 for ads</span></label>
+    <label class="check"><input type="checkbox" data-k="c3"><span>Set the target at 3–5 paying sign-ups</span></label>
+    <label class="check"><input type="checkbox" data-k="c4"><span>Decide the price and stick to it for the whole test</span></label>
+
+    <h4>Track during the test</h4>
+    <div class="fields">
+      <label>Idea being tested<input type="text" data-k="f_idea" placeholder="e.g. CP12 reminders"></label>
+      <label>End date<input type="date" data-k="f_end"></label>
+      <label>Ad spend (£)<input type="number" min="0" data-k="f_spend"></label>
+      <label>Real conversations<input type="number" min="0" data-k="f_convos"></label>
+      <label>Payments received<input type="number" min="0" data-k="f_paid"></label>
+    </div>
+    <div class="verdict" id="verdict" aria-live="polite"></div>
+
+    <h4>At the end date</h4>
+    <div class="outcomes">
+      <p><b>0 payments:</b> the offer or niche is wrong. Stop building and move to the next idea.</p>
+      <p><b>1–2 payments:</b> adjust the price, message or niche and run one more round.</p>
+      <p><b>3 or more:</b> validated. Keep selling, and only build what paying customers ask for.</p>
+    </div>
+
+    <h4>If the accountant chaser is next</h4>
+    <label class="check"><input type="checkbox" data-k="a1"><span>Ask the landlord to describe the exact chasing workflow and the hours it costs</span></label>
+    <label class="check"><input type="checkbox" data-k="a2"><span>Ask for payment or a founding-price commitment before building anything</span></label>
+    <label class="check"><input type="checkbox" data-k="a3"><span>Build a 2-page site and run a £200–£300 ad test aimed at UK management accountants and small practices</span></label>
+    <label class="check"><input type="checkbox" data-k="a4"><span>Apply the same kill rule: budget, conversation count and payment target set before starting</span></label>
+  </section>
+
+  <button type="button" id="reset">Clear saved progress</button>
+</div>
+
+<script>
+const ideas = [
+  { g:"sms", n:1, pick:true, t:"Accountant info chaser", d:"Chases clients by SMS and email for missing documents, receipts and year-end info, and stops once they upload.", r:"Supabase, Twilio sequences. First user: landlord." },
+  { g:"sms", n:2, pick:true, t:"CP12 gas safety renewal reminders", d:"Reminds a gas engineer's past customers when their annual landlord gas safety certificate is due, and books them in.", r:"ServiceM8 integration, SMS sequences." },
+  { g:"sms", n:3, t:"Boiler service reminders", d:"The same engine aimed at homeowners: your annual service is due. Bundle with #2 or sell separately.", r:"SMS sequences, ServiceM8." },
+  { g:"sms", n:4, pick:true, t:"Quote follow-up chaser for trades", d:"When a quote in ServiceM8 or Jobber isn't accepted after a set number of days, it sends an automatic nudge.", r:"ServiceM8 OAuth and webhooks, Jobber spoke." },
+  { g:"sms", n:5, t:"Missed-call text-back", d:"When a tradesperson misses a call, the caller gets an instant SMS with a booking link.", r:"Twilio number and SIP trunk." },
+  { g:"sms", n:6, t:"Dental recall and reactivation SMS", d:"Texts lapsed patients who are overdue for a check-up. CAH knowledge turned into a product.", r:"SMS sequences, dental market knowledge." },
+  { g:"sms", n:7, t:"PT client check-ins and renewal nudges", d:"Weekly check-ins plus reminders when a client's block of sessions is about to run out.", r:"SMS sequences, personal training background." },
+  { g:"reviews", n:8, t:"Standalone review widget", d:"Live Google stars on any local business website, sold cheaply at £9–£19 a month.", r:"Review widget and Places API key, already built." },
+  { g:"reviews", n:9, t:"White-label GBP health check", d:"Sell the health check tool to small marketing agencies as their own branded lead magnet.", r:"/check.html with Places API." },
+  { g:"reviews", n:10, t:"Reputation alerts", d:"Watches Trustpilot, Checkatrade and Google for new negative reviews and alerts the owner straight away.", r:"Complaint-monitoring workflow." },
+  { g:"property", n:11, t:"Landlord compliance tracker", d:"Tracks expiry dates for gas certificates, EICRs, EPCs and deposit protection, with reminders for small landlords and letting agents.", r:"Property background, SMS and email reminders." },
+  { g:"property", n:12, t:"Deposit protection deadline checker", d:"Flags deposits that haven't been protected within the legal window, before it becomes a costly claim.", r:"Propertymark background, first-hand dispute experience." },
+  { g:"freight", n:13, t:"Shipment document chaser for small forwarders", d:"Chases shippers for commercial invoices, packing lists and customs info. The accountant chaser applied to freight.", r:"Freight forwarding background, chaser engine." },
+  { g:"freight", n:14, t:"Tax deed pre-auction lien reports", d:"A self-serve report product for US tax deed investors, instead of a done-for-you research service.", r:"Planned lien research service." },
+  { g:"tools", n:15, t:"Call log and Trustpilot prospect extractors", d:"Small paid tools for agencies and sales teams who need lead lists fast.", r:"Call log extractor and Trustpilot extractor, already built." }
+];
+const STATUSES = ["Idea","Testing","Validated","Killed"];
+const KEY = "microsaas-backlog-v1";
+
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+function save(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e){} }
+let state = load();
+
+document.querySelectorAll(".list").forEach(list => {
+  ideas.filter(i => i.g === list.dataset.group).forEach(i => {
+    const row = document.createElement("div");
+    row.className = "idea" + (i.pick ? " pick" : "");
+    const v = state["s" + i.n] || "Idea";
+    row.innerHTML =
+      `<div class="num">#${i.n}</div>
+       <div><h3>${i.t}</h3><p>${i.d}</p><div class="reuse">Reuses: ${i.r}</div></div>
+       <select aria-label="Status of ${i.t}" data-k="s${i.n}" data-v="${v}">
+         ${STATUSES.map(s => `<option${s===v?" selected":""}>${s}</option>`).join("")}
+       </select>`;
+    list.appendChild(row);
+  });
+});
+
+document.querySelectorAll("[data-k]").forEach(el => {
+  const k = el.dataset.k;
+  if (el.type === "checkbox") el.checked = !!state[k];
+  else if (el.tagName !== "SELECT" && state[k] != null) el.value = state[k];
+  el.addEventListener(el.tagName === "SELECT" || el.type === "checkbox" ? "change" : "input", () => {
+    state[k] = el.type === "checkbox" ? el.checked : el.value;
+    if (el.tagName === "SELECT") el.dataset.v = el.value;
+    save(state); verdict();
+  });
+});
+
+function verdict(){
+  const spend = +state.f_spend || 0, convos = +state.f_convos || 0, paid = +state.f_paid || 0;
+  const out = document.getElementById("verdict");
+  if (paid >= 3) out.textContent = `${paid} payments. Validated: keep selling and build only what customers ask for.`;
+  else if (spend >= 300 && convos >= 20 && paid === 0) out.textContent = "Kill rule met: £300 spent, 20 conversations, no payments. Move to the next idea.";
+  else if (spend >= 300 && convos >= 20) out.textContent = `${paid} payment${paid===1?"":"s"}. Adjust price, message or niche and run one more round.`;
+  else out.textContent = `Test running: £${spend} of £300 spent, ${convos} of 20 conversations, ${paid} payment${paid===1?"":"s"}.`;
+}
+verdict();
+
+document.getElementById("reset").addEventListener("click", () => {
+  if (confirm("Clear all saved statuses, ticks and numbers on this page?")) {
+    try { localStorage.removeItem(KEY); } catch(e){}
+    location.reload();
+  }
+});
+</script>
+</body>
+</html>
